@@ -9,47 +9,52 @@ import AddEvent from "../pages/Dashboard/AddEvent";
 import EventDetails from "../components/Event/EventDetails";
 import ManageEvent from "../pages/Dashboard/ManageEvent";
 import UpdateEvent from "../pages/Dashboard/UpdateEvent";
+import MyBookings from "../pages/Dashboard/MyBookings";
 
 
-const router = createBrowserRouter ([
+const router = createBrowserRouter([
     {
         path: '/',
-        element: <Main/>,
+        element: <Main />,
         children: [
             {
                 index: true,
-                element: <Home/>,
-                loader: () => fetch(`${import.meta.env.VITE_API_URL}/events`)    
+                element: <Home />,
+                loader: () => fetch(`${import.meta.env.VITE_API_URL}/events`)
             },
             {
                 path: '/login',
-                element: <Login/>
+                element: <Login />
             },
             {
                 path: '/register',
-                element: <Register/>
+                element: <Register />
             },
             {
                 path: '/eventDetails/:id',
-                element: <PrivateRoute><EventDetails/></PrivateRoute>,
-                loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/event/${params.id}`)
+                element: <PrivateRoute><EventDetails /></PrivateRoute>,
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/event/${params.id}`)
             },
             {
                 path: 'dashboard',
-                element: <PrivateRoute><Dashboard/></PrivateRoute>,
-                children:[
-                       {
+                element: <PrivateRoute><Dashboard /></PrivateRoute>,
+                children: [
+                    {
                         path: 'dashboard/addEvent',
-                        element: <AddEvent/>
-                       },
-                       {
+                        element: <AddEvent />
+                    },
+                    {
                         path: '/dashboard/manageEvents',
-                        element: <ManageEvent/>
-                       },
-                       {
+                        element: <ManageEvent />
+                    },
+                    {
                         path: '/dashboard/updateEvent/:id',
-                        element: <UpdateEvent/>,
-                        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/event/${params.id}`)
+                        element: <UpdateEvent />,
+                        loader: ({ params }) => fetch(`${import.meta.env.VITE_API_URL}/event/${params.id}`)
+                    },
+                    {
+                        path: '/dashboard/bookings',
+                        element: <MyBookings/>
                     }
                 ]
             }
